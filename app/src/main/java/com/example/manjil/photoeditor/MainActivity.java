@@ -12,11 +12,14 @@ import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import net.alhazmy13.mediapicker.Image.ImagePicker;
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton cameraBtn,liveCameraBtn,editorBtn;
     private  String path;
     private File dir;
+    TextView txtweb;
     private   AlertDialog alertDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         editorBtn = (ImageButton)findViewById(R.id.editor);
         path = Environment.getExternalStorageDirectory().getAbsolutePath() + getString(R.string.directory_name);
         dir = new File(path);
+        web();
         CheckorRequestPermissions();
         cameraBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -267,6 +272,20 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
         }
+    }
+
+
+    public void web(){
+        txtweb=(TextView)findViewById(R.id.textweb);
+        txtweb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final TextView myClickableUrl = (TextView) findViewById(R.id.textweb);
+                myClickableUrl.setText("Click to download code from github: https://github.com/manjilnepali123/PhotoEditor");
+                Linkify.addLinks(myClickableUrl, Linkify.WEB_URLS);
+            }
+        });
+
     }
 
 }
